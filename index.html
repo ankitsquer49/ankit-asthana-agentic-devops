@@ -594,15 +594,18 @@ async function send(){
   busy=true;btn.disabled=true;
   const typing=addMsg('Thinking…','typing');
   try{
-    // 👇 Replace with your Cloudflare Worker URL after deploying
-    const PROXY = 'https://frosty-river-3e0d.ankit-asthana.workers.dev';
+    const PROXY='https://frosty-river-3e0d.ankit-asthana.workers.dev';
     const r=await fetch(PROXY,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})
+      body:JSON.stringify({
+        model:'gpt-4o-mini',
+        max_tokens:1000,
+        messages:[{role:'system',content:SYS},...hist]
+      })
     });
     const d=await r.json();
-    const reply=d.content?.find(b=>b.type==='text')?.text||'Sorry, could not get a response right now.';
+    const reply=d.choices?.[0]?.message?.content||d.error?.message||'Sorry, could not get a response right now.';
     typing.remove();
     addMsg(reply,'ai');
     hist.push({role:'assistant',content:reply});
