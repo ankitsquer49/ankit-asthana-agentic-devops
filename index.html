@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ankit Asthana – Cloud Architect</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#070d1b;--bg2:#0d1424;--bg3:rgba(255,255,255,0.04);--bg4:rgba(255,255,255,0.02);
+  --accent:#00d4aa;--accent2:#3b82f6;--accent3:#a78bfa;
+  --text:#e2e8f0;--muted:#94a3b8;--dim:#64748b;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.05);
+}
+html,body{height:100%;font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);}
+.app{display:grid;grid-template-columns:1fr 360px;height:100vh;overflow:hidden;}
+.portfolio{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent;}
+.portfolio::-webkit-scrollbar{width:4px;}
+.portfolio::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:10;background:rgba(7,13,27,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.nav-logo{font-size:15px;font-weight:600;color:var(--text);}
+.nav-links{display:flex;gap:20px;align-items:center;}
+.nav-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-cta{background:var(--accent);color:#070d1b !important;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;}
+
+/* HERO */
+.hero{padding:52px 36px 44px;border-bottom:1px solid var(--border2);}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,170,0.08);color:var(--accent);border:1px solid rgba(0,212,170,0.2);padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.5px;margin-bottom:18px;}
+.badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+h1{font-size:42px;font-weight:700;color:#f8fafc;line-height:1.1;margin-bottom:6px;}
+h1 span{color:var(--accent);}
+.hero-title{font-size:15px;color:var(--muted);margin-bottom:4px;}
+.hero-loc{font-size:12px;color:var(--dim);margin-bottom:16px;}
+.hero-summary{font-size:13px;color:var(--muted);line-height:1.75;max-width:620px;margin-bottom:22px;}
+.cert-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.cert{display:flex;align-items:center;gap:5px;background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.2);color:#fbbf24;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:500;}
+.stats{display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;width:fit-content;}
+.stat{padding:14px 22px;border-right:1px solid var(--border);text-align:center;}
+.stat:last-child{border-right:none;}
+.stat-num{font-size:26px;font-weight:700;color:var(--accent);line-height:1;}
+.stat-label{font-size:10px;color:var(--dim);margin-top:3px;}
+
+/* SECTIONS */
+.section{padding:40px 36px;border-bottom:1px solid var(--border2);}
+.s-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+.s-title{font-size:22px;font-weight:600;color:#f1f5f9;margin-bottom:28px;}
+
+/* SPEAKING */
+.talk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.talk-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .2s;}
+.talk-card:hover{border-color:rgba(167,139,250,0.35);}
+.talk-event{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent3);margin-bottom:8px;}
+.talk-title{font-size:13px;font-weight:600;color:#f1f5f9;margin-bottom:8px;line-height:1.45;}
+.talk-meta{font-size:11px;color:var(--dim);margin-bottom:10px;}
+.talk-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.talk-tag{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.18);color:#c4b5fd;padding:2px 8px;border-radius:100px;font-size:10px;}
+
+/* BLOGS */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+.blog-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .2s;}
+.blog-card:hover{border-color:rgba(59,130,246,0.35);}
+.blog-platform{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent2);margin-bottom:8px;}
+.blog-title{font-size:13px;font-weight:600;color:#f1f5f9;margin-bottom:8px;line-height:1.45;}
+.blog-desc{font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;}
+.blog-link{font-size:11px;color:var(--accent2);text-decoration:none;}
+.blog-link:hover{text-decoration:underline;}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.proj-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .2s;}
+.proj-card:hover{border-color:rgba(0,212,170,0.3);}
+.proj-icon{font-size:22px;margin-bottom:8px;}
+.proj-title{font-size:13px;font-weight:600;color:#f1f5f9;margin-bottom:6px;}
+.proj-desc{font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;}
+.proj-stack{display:flex;flex-wrap:wrap;gap:4px;}
+.proj-tag{background:rgba(0,212,170,0.07);border:1px solid rgba(0,212,170,0.18);color:#6ee7b7;padding:2px 8px;border-radius:100px;font-size:10px;}
+
+/* EXP */
+.exp-item{display:grid;grid-template-columns:100px 1fr;gap:0 18px;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--border2);}
+.exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.exp-period{font-size:11px;color:var(--dim);line-height:1.6;padding-top:2px;}
+.exp-current{font-size:10px;color:#10b981;font-weight:600;margin-top:4px;display:flex;align-items:center;gap:3px;}
+.exp-dot{width:5px;height:5px;background:#10b981;border-radius:50%;animation:pulse 2s infinite;}
+.exp-company{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
+.exp-role{font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:7px;}
+.exp-desc{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);color:#93c5fd;padding:2px 8px;border-radius:100px;font-size:10px;}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:8px;}
+.skill{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;transition:border-color .2s;}
+.skill:hover{border-color:rgba(0,212,170,0.3);}
+.skill-icon{font-size:20px;margin-bottom:5px;}
+.skill-name{font-size:11px;font-weight:500;color:var(--text);}
+.skill-level{font-size:10px;color:var(--dim);margin-top:2px;}
+
+/* AWARDS */
+.award-row{display:flex;flex-wrap:wrap;gap:12px;}
+.award-card{background:var(--bg3);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:16px;flex:1;min-width:200px;}
+.award-icon{font-size:20px;margin-bottom:8px;}
+.award-title{font-size:13px;font-weight:600;color:#fbbf24;margin-bottom:4px;}
+.award-sub{font-size:12px;color:var(--dim);}
+
+/* COMMUNITY */
+.community-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.comm-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.comm-emoji{font-size:18px;margin-bottom:6px;}
+.comm-title{font-size:12px;font-weight:600;color:#f1f5f9;margin-bottom:3px;}
+.comm-sub{font-size:11px;color:var(--dim);}
+
+/* CONTACT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.info-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.info-label{font-size:11px;color:var(--dim);margin-bottom:6px;}
+.info-main{font-size:14px;font-weight:600;color:#f1f5f9;margin-bottom:3px;}
+.info-sub{font-size:12px;color:var(--dim);}
+a.accent{color:var(--accent);text-decoration:none;}
+a.accent:hover{text-decoration:underline;}
+a.blue{color:#93c5fd;text-decoration:none;}
+a.blue:hover{text-decoration:underline;}
+
+/* CHAT PANEL */
+.chat-panel{background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.chat-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#00d4aa,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+.chat-hdr-name{font-size:13px;font-weight:600;color:#f1f5f9;}
+.chat-hdr-sub{font-size:10px;color:var(--dim);display:flex;align-items:center;gap:4px;margin-top:2px;}
+.online-dot{width:5px;height:5px;background:#10b981;border-radius:50%;animation:pulse 2s infinite;}
+.chat-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.08) transparent;}
+.msg{max-width:90%;padding:9px 12px;border-radius:12px;font-size:12.5px;line-height:1.55;}
+.msg.ai{align-self:flex-start;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--muted);border-radius:4px 12px 12px 12px;}
+.msg.user{align-self:flex-end;background:rgba(0,212,170,0.12);border:1px solid rgba(0,212,170,0.22);color:var(--text);border-radius:12px 4px 12px 12px;}
+.msg.typing{align-self:flex-start;background:rgba(255,255,255,0.03);border:1px solid var(--border);color:var(--dim);font-style:italic;font-size:11.5px;border-radius:4px 12px 12px 12px;}
+.quick-prompts{padding:6px 12px 8px;display:flex;flex-wrap:wrap;gap:5px;flex-shrink:0;border-top:1px solid var(--border2);}
+.qbtn{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.18);color:#93c5fd;padding:4px 9px;border-radius:100px;font-size:10.5px;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.qbtn:hover{background:rgba(59,130,246,0.14);}
+.chat-input-row{padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:7px;flex-shrink:0;}
+#chatInput{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 11px;color:var(--text);font-size:12.5px;outline:none;resize:none;font-family:inherit;}
+#chatInput::placeholder{color:#475569;}
+#chatInput:focus{border-color:rgba(0,212,170,0.35);}
+#sendBtn{width:36px;height:36px;background:var(--accent);border:none;border-radius:10px;color:#070d1b;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+#sendBtn:hover{background:#00b894;}
+#sendBtn:disabled{background:#1e293b;color:#475569;cursor:not-allowed;}
+#sendBtn svg{width:14px;height:14px;}
+.powered{text-align:center;font-size:10px;color:#2d3748;padding:5px;flex-shrink:0;}
+
+@media(max-width:860px){
+  .app{grid-template-columns:1fr;height:auto;}
+  .portfolio{overflow-y:visible;height:auto;}
+  .chat-panel{height:500px;}
+  nav{padding:0 16px;}
+  .hero,.section{padding-left:16px;padding-right:16px;}
+  h1{font-size:30px;}
+  .exp-item{grid-template-columns:1fr;}
+  .two-col{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ===== LEFT: PORTFOLIO ===== -->
+<div class="portfolio">
+<nav>
+  <div class="nav-logo">Ankit Asthana</div>
+  <div class="nav-links">
+    <a href="#speaking">Speaking</a>
+    <a href="#blogs">Blogs</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.linkedin.com/in/ankitasthanadevops" target="_blank" class="nav-cta">LinkedIn ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge"><div class="badge-dot"></div> OPEN TO OPPORTUNITIES · 2,361 LINKEDIN FOLLOWERS</div>
+  <h1>Ankit <span>Asthana</span></h1>
+  <div class="hero-title">Cloud Architect &nbsp;·&nbsp; Agentic DevOps Enthusiast &nbsp;·&nbsp; Speaker &nbsp;·&nbsp; LLMOps</div>
+  <div class="hero-loc">📍 Munich, Bavaria, Germany</div>
+  <p class="hero-summary">13+ years architecting secure, scalable cloud environments across AWS, Azure & OTC. Pioneering Agentic AI in DevOps — from K8sGPT-powered incident remediation to multi-agent LangGraph pipelines. Active community speaker on Kubernetes, AI security, and observability.</p>
+  <div class="cert-row">
+    <div class="cert">🏅 AWS Certified DevOps Engineer – Professional</div>
+    <div class="cert">🏅 HashiCorp Terraform Associate (003)</div>
+    <div class="cert">🎓 GenAI for DevOps & DevSecOps – Udemy</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">13+</div><div class="stat-label">Years</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Talks Given</div></div>
+    <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Blog Posts</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Cloud Platforms</div></div>
+    <div class="stat"><div class="stat-num">2.3K</div><div class="stat-label">Followers</div></div>
+  </div>
+</div>
+
+<!-- SPEAKING -->
+<div class="section" id="speaking">
+  <div class="s-label">Community Presence</div>
+  <div class="s-title">Speaking Engagements</div>
+  <div class="talk-grid">
+
+    <div class="talk-card">
+      <div class="talk-event">Cloud Native Night Munich · Mar 2026</div>
+      <div class="talk-title">Beyond API Keys: Fine-Grained AI Agent Authorization for DevOps</div>
+      <div class="talk-meta">🎤 with Angel Aray · SQUER &nbsp;·&nbsp; 📍 Munich</div>
+      <p style="font-size:11.5px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Tackled AI agent authorization using OpenFGA — moving beyond static API keys to relationship-based, auditable access control for AI-driven DevOps workflows.</p>
+      <div class="talk-tags"><span class="talk-tag">OpenFGA</span><span class="talk-tag">AI Agents</span><span class="talk-tag">Authorization</span><span class="talk-tag">DevOps</span></div>
+    </div>
+
+    <div class="talk-card">
+      <div class="talk-event">K8s Cloud Native & Platform Eng. Meetup · Sep 2025</div>
+      <div class="talk-title">The 10 Commandments of Trustworthy Agentic AI in Kubernetes DevOps</div>
+      <div class="talk-meta">🎤 with Tom Graupner · SQUER &nbsp;·&nbsp; 📍 Munich (Packed house!)</div>
+      <p style="font-size:11.5px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Principles for safe AI agents in K8s: self-healing pods, plan-before-act patterns, SLO-aligned deployments, event-driven automation, and guardrails that keep humans in control.</p>
+      <div class="talk-tags"><span class="talk-tag">Kubernetes</span><span class="talk-tag">Agentic AI</span><span class="talk-tag">SRE</span><span class="talk-tag">GitOps</span></div>
+    </div>
+
+    <div class="talk-card">
+      <div class="talk-event">SRE-MUC Summer Meetup · Jul 2025</div>
+      <div class="talk-title">From Alerts to Actions: Smarter Kubernetes Fixes with Slack, AI & GitOps</div>
+      <div class="talk-meta">🎤 with Tom Graupner · SQUER &nbsp;·&nbsp; 📍 House of Communication, Munich</div>
+      <p style="font-size:11.5px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Live demo: Grafana alert → LangChain RCA → Slack buttons (fix/PR/scan/Jira). Slash command /agentic-scan → K8sGPT cluster analysis → AI-generated Kyverno policy PR.</p>
+      <div class="talk-tags"><span class="talk-tag">ChatOps</span><span class="talk-tag">K8sGPT</span><span class="talk-tag">LangChain</span><span class="talk-tag">Kyverno</span></div>
+    </div>
+
+    <div class="talk-card">
+      <div class="talk-event">Brainfood SRE Meetup Munich · 2025</div>
+      <div class="talk-title">From Dashboards to Decisions: AI-Driven Observability POC Showcase</div>
+      <div class="talk-meta">🎤 with Tom Graupner · SQUER &nbsp;·&nbsp; 📍 Munich</div>
+      <p style="font-size:11.5px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Showcased internal POC at SQUER — Grafana alerts feeding LLM-based RCA summaries to Slack with button-driven GitOps actions. Sparked great discussions on AI+observability convergence.</p>
+      <div class="talk-tags"><span class="talk-tag">Observability</span><span class="talk-tag">Grafana</span><span class="talk-tag">AIOps</span><span class="talk-tag">LLM</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BLOG POSTS -->
+<div class="section" id="blogs">
+  <div class="s-label">Thought Leadership</div>
+  <div class="s-title">Blog Posts & Articles</div>
+  <div class="blog-grid">
+
+    <div class="blog-card">
+      <div class="blog-platform">SQUER Blog</div>
+      <div class="blog-title">Toward Agentic Kubernetes Hardening: LangChain, K8sGPT, and Kyverno in Action</div>
+      <div class="blog-desc">How LangChain, K8sGPT, and Kyverno combine for adaptive, AI-driven Kubernetes security — dynamic observability, automated policy enforcement, and real-time remediation at scale.</div>
+      <a class="blog-link" href="https://lnkd.in/dFBdqdVm" target="_blank">Read article ↗</a>
+    </div>
+
+    <div class="blog-card">
+      <div class="blog-platform">SQUER Blog</div>
+      <div class="blog-title">K8sGPT Essentials: Unlocking Kubernetes Insights with AI</div>
+      <div class="blog-desc">A practical guide to K8sGPT — how it works, how to deploy it, integrations with OpenAI/Bedrock/Azure, security/anonymization, and custom analyzers for platform teams.</div>
+      <a class="blog-link" href="https://lnkd.in/dw9TMJhV" target="_blank">Read article ↗</a>
+    </div>
+
+    <div class="blog-card">
+      <div class="blog-platform">SQUER Blog · Deep Dive</div>
+      <div class="blog-title">Beyond API Keys: AI Agent Authorization with OpenFGA + Agent Gateway</div>
+      <div class="blog-desc">Architectural deep dive on enforcing relationship-based, auditable authorization for AI-driven DevOps workflows — keeping automation fast while security stays explainable.</div>
+      <a class="blog-link" href="https://lnkd.in/duAGCvyh" target="_blank">Read article ↗</a>
+    </div>
+
+    <div class="blog-card">
+      <div class="blog-platform">Medium</div>
+      <div class="blog-title">Highly Available & Secure AWS Architecture Documentation</div>
+      <div class="blog-desc">Designing a HA, secure, scalable AWS architecture using VPC, ECS Fargate, ALB, Aurora MySQL, and S3 — built for resilience, encryption, and zero-downtime scaling across multiple AZs.</div>
+      <a class="blog-link" href="https://medium.com/@ankit.asthana" target="_blank">Read on Medium ↗</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="projects">
+  <div class="s-label">Innovation & R&D</div>
+  <div class="s-title">Featured Projects</div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-icon">🤖</div>
+      <div class="proj-title">Autonomous Blog Generation Agent</div>
+      <div class="proj-desc">Multi-agent DAG pipeline: Topic/transcript → Title Agent → Content Agent → conditional Router → Translation Agent (9+ languages). ~200 lines of Python, full LangSmith traceability.</div>
+      <div class="proj-stack"><span class="proj-tag">LangGraph</span><span class="proj-tag">FastAPI</span><span class="proj-tag">GPT-4o</span><span class="proj-tag">LangSmith</span><span class="proj-tag">Python</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">⚡</div>
+      <div class="proj-title">From Alerts to Actions — Agentic K8s Incident Response</div>
+      <div class="proj-desc">Grafana alert → LangChain RCA engine → Slack buttons (fix, create PR, open Jira, cluster scan). /agentic-scan command → K8sGPT → AI-generated Kyverno policy PR. MTTR reducer.</div>
+      <div class="proj-stack"><span class="proj-tag">LangChain</span><span class="proj-tag">K8sGPT</span><span class="proj-tag">Grafana</span><span class="proj-tag">Kyverno</span><span class="proj-tag">Slack</span><span class="proj-tag">GitOps</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">🔐</div>
+      <div class="proj-title">AI Agent Gateway with OpenFGA Authorization</div>
+      <div class="proj-desc">Production-ready setup for fine-grained AI agent authorization using OpenFGA. Agents open PRs, trigger pipelines, deploy to K8s — all with relationship-based, auditable access control.</div>
+      <div class="proj-stack"><span class="proj-tag">OpenFGA</span><span class="proj-tag">Agent Gateway</span><span class="proj-tag">Kubernetes</span><span class="proj-tag">Python</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">🧠</div>
+      <div class="proj-title">Amazon Bedrock DevOps Assistant</div>
+      <div class="proj-desc">Integrated Bedrock into CI/CD for: auto-generated release notes from Git history, real-time RCA from CloudWatch/Prometheus logs via Lambda, and Slack ChatOps assistant for on-call teams.</div>
+      <div class="proj-stack"><span class="proj-tag">Amazon Bedrock</span><span class="proj-tag">Lambda</span><span class="proj-tag">Slack</span><span class="proj-tag">CloudWatch</span><span class="proj-tag">CI/CD</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">🦄</div>
+      <div class="proj-title">AWS GenAI GameDay — 3rd Place (Team Jewel)</div>
+      <div class="proj-desc">Competed in inter-city AWS GenAI GameDay (Berlin/Munich/Frankfurt). Built a GenAI prototype using Amazon Bedrock, Lambda, Step Functions, and Amazon Q — scored 3rd place.</div>
+      <div class="proj-stack"><span class="proj-tag">Amazon Bedrock</span><span class="proj-tag">Step Functions</span><span class="proj-tag">Lambda</span><span class="proj-tag">Amazon Q</span></div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">💬</div>
+      <div class="proj-title">PersonalGPT — Local AI Engineering Assistant</div>
+      <div class="proj-desc">Built a local PersonalGPT as part of GenAI for DevOps course — AI-powered automation, secure infrastructure insights, and real-time support for engineering tasks. Runs fully on-prem.</div>
+      <div class="proj-stack"><span class="proj-tag">Local LLM</span><span class="proj-tag">DevOps</span><span class="proj-tag">Python</span><span class="proj-tag">GenAI</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="section">
+  <div class="s-label">Recognition</div>
+  <div class="s-title">Awards & Achievements</div>
+  <div class="award-row">
+    <div class="award-card">
+      <div class="award-icon">🏆</div>
+      <div class="award-title">SQUER Jumpstarter Award</div>
+      <div class="award-sub">Offsite 2025 — recognized for ownership, delivery, and building momentum across SQUER Munich from day one.</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">🥉</div>
+      <div class="award-title">AWS GenAI GameDay · 3rd Place</div>
+      <div class="award-sub">Team Jewel — inter-city competition (Munich). Built a GenAI prototype with Bedrock, Lambda, Step Functions & Amazon Q.</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">🌍</div>
+      <div class="award-title">ObservabilityCON London 2025</div>
+      <div class="award-sub">Attended Grafana Labs ObservabilityCON — deep dives on Grafana Assistant, Knowledge Graph, and Agentic AI in observability.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section" id="experience">
+  <div class="s-label">Career History</div>
+  <div class="s-title">Experience</div>
+
+  <div class="exp-item">
+    <div class="exp-period">May 2025 – Present<div class="exp-current"><div class="exp-dot"></div>Current</div></div>
+    <div>
+      <div class="exp-company">SQUER</div>
+      <div class="exp-role">Senior Cloud Infrastructure Engineer & Architect</div>
+      <p class="exp-desc">Multi-cloud platforms (AWS, Azure, OTC/CCE Turbo) for European customers. Pioneering Agentic AI for DevOps/SRE — LLM-powered incident analysis, K8sGPT, Slack ChatOps, GitOps automation. Security-by-design: Kyverno, IRSA/OIDC, Vault, image/CVE scanning.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">OTC</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Argo CD</span><span class="tag">LangChain</span><span class="tag">K8sGPT</span><span class="tag">Kyverno</span><span class="tag">Vault</span><span class="tag">Kafka</span><span class="tag">OpenFGA</span></div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-period">Oct 2024 – Apr 2025</div>
+    <div>
+      <div class="exp-company">SYSKRON GmbH</div>
+      <div class="exp-role">Senior Software Developer (Cloud)</div>
+      <p class="exp-desc">Industrial IoT for food & beverage sector. Edge Kubernetes (K3s) for IIoT data flows, Jenkins/FluxCD pipelines, OpenTelemetry observability. 40% faster provisioning, 25% AWS cost reduction.</p>
+      <div class="tags"><span class="tag">K3s</span><span class="tag">Jenkins</span><span class="tag">FluxCD</span><span class="tag">OpenTelemetry</span><span class="tag">Terraform</span><span class="tag">Ansible</span></div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-period">Nov 2022 – Sep 2024</div>
+    <div>
+      <div class="exp-company">Hubert Burda Media</div>
+      <div class="exp-role">Senior DevOps Engineer</div>
+      <p class="exp-desc">Led DevOps for e-commerce platforms. AWS migration: 30% cost reduction. 70% faster deployments via Jenkins/K8s pipelines. Security-first: Trivy, SonarQube. Monitoring with Prometheus & ELK Stack.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Jenkins</span><span class="tag">Pulumi</span><span class="tag">Prometheus</span><span class="tag">ELK</span><span class="tag">Trivy</span></div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-period">Mar 2021 – Aug 2022</div>
+    <div>
+      <div class="exp-company">EPAM Systems</div>
+      <div class="exp-role">Senior Systems Engineer (DevOps)</div>
+      <p class="exp-desc">Kubernetes ecosystem for Verizon microservices. Terraform automation: 50% setup time reduction. AWS fault tolerance & DR readiness. New Relic for full-stack observability.</p>
+      <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">New Relic</span></div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-period">Mar 2016 – Feb 2021</div>
+    <div>
+      <div class="exp-company">Capgemini</div>
+      <div class="exp-role">Consultant – Senior DevOps & BTA</div>
+      <p class="exp-desc">McDonald's vendor integration platforms. 99.9% uptime. Terraform & Ansible IaC for error-free provisioning. Bridged dev and ops to enhance release cycles.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">JIRA</span></div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-period">Jul 2013 – Mar 2016</div>
+    <div>
+      <div class="exp-company">Tata Consultancy Services</div>
+      <div class="exp-role">System Engineer</div>
+      <p class="exp-desc">ETL systems for Morgan Stanley. Informatica PowerCenter pipelines, Tableau/QlikView dashboards. 30% SQL processing time reduction via script optimization.</p>
+      <div class="tags"><span class="tag">Informatica</span><span class="tag">SQL</span><span class="tag">Tableau</span><span class="tag">Unix</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="section" id="skills">
+  <div class="s-label">Tech Stack</div>
+  <div class="s-title">Core Skills</div>
+  <div class="skills-grid">
+    <div class="skill"><div class="skill-icon">☁️</div><div class="skill-name">AWS</div><div class="skill-level">Expert · Certified</div></div>
+    <div class="skill"><div class="skill-icon">⚙️</div><div class="skill-name">Kubernetes</div><div class="skill-level">Expert</div></div>
+    <div class="skill"><div class="skill-icon">🏗️</div><div class="skill-name">Terraform</div><div class="skill-level">Certified</div></div>
+    <div class="skill"><div class="skill-icon">🔄</div><div class="skill-name">Argo CD</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🤖</div><div class="skill-name">LangChain</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🧩</div><div class="skill-name">LangGraph</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🧠</div><div class="skill-name">K8sGPT</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🔐</div><div class="skill-name">OpenFGA</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🔒</div><div class="skill-name">Vault</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">📊</div><div class="skill-name">Grafana</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🛡️</div><div class="skill-name">Kyverno</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🏛️</div><div class="skill-name">Azure</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">🚀</div><div class="skill-name">CI/CD</div><div class="skill-level">Expert</div></div>
+    <div class="skill"><div class="skill-icon">🌐</div><div class="skill-name">FastAPI</div><div class="skill-level">Advanced</div></div>
+    <div class="skill"><div class="skill-icon">📡</div><div class="skill-name">ChatOps</div><div class="skill-level">Advanced</div></div>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<div class="section">
+  <div class="s-label">Always Learning</div>
+  <div class="s-title">Community & Events</div>
+  <div class="community-grid">
+    <div class="comm-card"><div class="comm-emoji">🎓</div><div class="comm-title">CodeCraft Workshop 2025</div><div class="comm-sub">Vienna — session with Neal Ford on Architecture as Code</div></div>
+    <div class="comm-card"><div class="comm-emoji">📡</div><div class="comm-title">ObservabilityCON London 2025</div><div class="comm-sub">Grafana Labs — Agentic AI in observability sessions</div></div>
+    <div class="comm-card"><div class="comm-emoji">🦄</div><div class="comm-title">AWS GenAI GameDay</div><div class="comm-sub">Munich — 3rd place with Team Jewel using Amazon Bedrock</div></div>
+    <div class="comm-card"><div class="comm-emoji">🏃</div><div class="comm-title">B2Run Munich</div><div class="comm-sub">Corporate run with SQUER team at Olympiastadion</div></div>
+    <div class="comm-card"><div class="comm-emoji">✍️</div><div class="comm-title">3+ Published Articles</div><div class="comm-sub">SQUER Blog & Medium — Kubernetes, AI, Cloud Security</div></div>
+    <div class="comm-card"><div class="comm-emoji">🏅</div><div class="comm-title">SQUER Jumpstarter Award</div><div class="comm-sub">Recognized for ownership and delivery at SQUER Offsite 2025</div></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section" id="contact">
+  <div class="s-label">Get in Touch</div>
+  <div class="s-title">Contact & Education</div>
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-label">📧 Email</div>
+      <div class="info-main"><a class="accent" href="mailto:ankit.asthana49@hotmail.com">ankit.asthana49@hotmail.com</a></div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">💼 LinkedIn</div>
+      <div class="info-main"><a class="blue" href="https://www.linkedin.com/in/ankitasthanadevops" target="_blank">linkedin.com/in/ankitasthanadevops</a></div>
+      <div class="info-sub">2,361 followers</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">🎓 Education</div>
+      <div class="info-main">B.Tech – Computer Science & Engineering</div>
+      <div class="info-sub">SRM University · 2009 – 2013</div>
+    </div>
+    <div class="info-card">
+      <div class="info-label">📍 Location</div>
+      <div class="info-main">Munich, Bavaria, Germany</div>
+      <div class="info-sub">Open to hybrid & remote</div>
+    </div>
+  </div>
+</div>
+</div><!-- end portfolio -->
+
+<!-- ===== RIGHT: AI CHAT ===== -->
+<div class="chat-panel">
+  <div class="chat-header">
+    <div class="avatar">AA</div>
+    <div>
+      <div class="chat-hdr-name">Ask About Ankit</div>
+      <div class="chat-hdr-sub"><div class="online-dot"></div> AI Assistant · Powered by Claude</div>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg ai">👋 Hi! I'm Ankit's AI assistant. Ask me about his cloud architecture work, speaking talks, blog posts, Agentic AI projects, certifications, or how he can help your team!</div>
+  </div>
+  <div class="quick-prompts" id="qp">
+    <button class="qbtn" onclick="sq('What talks has Ankit given?')">🎤 Talks</button>
+    <button class="qbtn" onclick="sq('Tell me about his Agentic AI projects')">🤖 AI Projects</button>
+    <button class="qbtn" onclick="sq('What blogs has Ankit written?')">✍️ Blogs</button>
+    <button class="qbtn" onclick="sq('What is the OpenFGA talk about?')">🔐 OpenFGA</button>
+    <button class="qbtn" onclick="sq('How can Ankit help my team?')">🤝 Hire him</button>
+    <button class="qbtn" onclick="sq('What awards has Ankit received?')">🏆 Awards</button>
+  </div>
+  <div class="chat-input-row">
+    <textarea id="chatInput" placeholder="Ask anything about Ankit…" rows="1" onkeydown="hk(event)"></textarea>
+    <button id="sendBtn" onclick="send()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="powered">AI responses generated by Claude · Contact Ankit for speaking/media inquiries</div>
+</div>
+
+</div><!-- end app -->
+<script>
+const SYS = `You are an AI assistant representing Ankit Asthana, a Cloud Architect, Agentic DevOps Enthusiast, and community speaker based in Munich, Bavaria, Germany. Answer professionally, enthusiastically, and concisely.
+
+BASICS:
+- Email: ankit.asthana49@hotmail.com
+- LinkedIn: linkedin.com/in/ankitasthanadevops (2,361 followers)
+- Location: Munich, Bavaria, Germany
+
+CERTIFICATIONS:
+- AWS Certified DevOps Engineer – Professional (Amazon Web Services)
+- HashiCorp Certified: Terraform Associate (003) (HashiCorp)
+- GenAI for DevOps & DevSecOps Engineers (Udemy)
+
+SPEAKING ENGAGEMENTS (4 confirmed talks):
+1. Cloud Native Night Munich (March 19, 2026) — "Beyond API Keys: Fine-Grained AI Agent Authorization for DevOps" with Angel Aray (SQUER). Topic: AI agents deploying to K8s using OpenFGA + Agent Gateway for relationship-based, auditable authorization. Published architectural deep dive beforehand.
+2. Kubernetes, Cloud Native & Platform Engineering Meetup Munich (September 9, 2025) — "The 10 Commandments of Trustworthy Agentic AI in Kubernetes DevOps" with Tom Graupner (SQUER) at überlab House of Communication. Packed house. Tom's post: "We are packed tonight!" Topics: self-healing pods, plan-before-act, SLO-aligned deployments, event-driven agents, guardrails.
+3. SRE-MUC Summer Meetup Munich (July 14, 2025) — "From Alerts to Actions: Smarter Kubernetes Fixes with Slack, AI & GitOps" with Tom Graupner. Live demos: Grafana alert → LangChain RCA → Slack action buttons (fix/PR/Jira/scan); /agentic-scan Slack command → K8sGPT → Kyverno PR.
+4. Brainfood SRE Meetup Munich (2025) — Showcased internal SQUER POC on AI-driven observability: Grafana alerts → LLM RCA → Slack → GitOps actions.
+
+BLOG POSTS / ARTICLES:
+1. "Toward Agentic Kubernetes Hardening: LangChain, K8sGPT, and Kyverno in Action" (SQUER Blog) — LangChain + K8sGPT + Kyverno for adaptive AI-driven Kubernetes security.
+2. "K8sGPT Essentials: Unlocking Kubernetes Insights with AI" (SQUER Blog) — practical guide: deployment, LLM providers, security/anonymization, custom analyzers.
+3. "Beyond API Keys: AI Agent Authorization Architecture" (SQUER Blog) — architectural deep dive on OpenFGA + Agent Gateway for AI DevOps.
+4. "Highly Available & Secure AWS Architecture Documentation" (Medium) — VPC, ECS Fargate, ALB, Aurora MySQL, S3, multi-AZ.
+
+PROJECTS:
+1. Autonomous Blog Generation Agent: LangGraph DAG, multi-agent (Title Agent + Content Agent + Router + Translation Agent for 9+ languages), FastAPI backend, GPT-4o, LangSmith tracing. ~200 lines Python. Each agent has single responsibility; state flows through shared TypedDict; conditional routing.
+2. From Alerts to Actions — Agentic K8s Incident Response (with Tom Graupner): Grafana → LangChain RCA → Slack buttons (fix/PR/Jira/scan/cluster scan). /agentic-scan → K8sGPT analysis → Kyverno policy PR with AI-generated fixes. Reduces MTTR, keeps humans in loop.
+3. AI Agent Gateway with OpenFGA: Production-ready setup for fine-grained agent authorization. Agents open PRs, trigger pipelines, deploy to K8s — all with relationship-based access control. Presented at Cloud Native Night Munich.
+4. Amazon Bedrock DevOps Assistant: Auto-generate release notes from Git commits, real-time RCA from CloudWatch/Prometheus via Lambda, Slack ChatOps assistant for on-call ("What caused last deployment to fail?").
+5. AWS GenAI GameDay Prototype (Team Jewel): Bedrock + Lambda + Step Functions + Amazon Q. Won 3rd place in inter-city Munich competition.
+6. PersonalGPT: Local AI assistant for engineering tasks — runs fully on-prem for secure infrastructure insights.
+
+AWARDS & ACHIEVEMENTS:
+- SQUER Jumpstarter Award (Offsite 2025): Recognition for ownership, delivery, and momentum at SQUER Munich.
+- AWS GenAI GameDay 3rd place — Team Jewel, Munich.
+- ObservabilityCON London 2025: Attended Grafana Labs flagship event, sessions on Grafana Assistant, Knowledge Graph, Agentic AI in observability.
+- CodeCraft Workshop 2025 Vienna: Inspiring discussion with Neal Ford on Architecture as Code.
+- B2Run Munich: Ran 5.7km with SQUER team, finishing inside Olympiastadion.
+
+CURRENT ROLE — SQUER (May 2025–Present), Senior Cloud Infrastructure Engineer & Architect:
+Multi-cloud AWS, Azure, OTC (CCE Turbo). Kubernetes, Terraform, Argo CD, GitHub Actions, CircleCI. Agentic AI: LangChain, K8sGPT, LLMOps, Slack ChatOps. Security: Kyverno, IRSA/OIDC, Vault. Observability: Prometheus/Grafana, OpenTelemetry. Kafka/EMQX, Postgres.
+
+PREVIOUS:
+- SYSKRON GmbH (Oct 2024–Apr 2025): IIoT, K3s edge clusters, FluxCD, OpenTelemetry, 25% AWS cost reduction
+- Hubert Burda Media (Nov 2022–Sep 2024): E-commerce, 70% faster deployments, 30% cost reduction
+- EPAM/Verizon (Mar 2021–Aug 2022): Kubernetes microservices, 50% setup reduction
+- Capgemini/McDonald's (Mar 2016–Feb 2021): 99.9% uptime, Terraform/Ansible IaC
+- TCS/Morgan Stanley (Jul 2013–Mar 2016): ETL, Informatica, SQL, Tableau
+
+EDUCATION: B.Tech Computer Science, SRM University (2009–2013)
+
+For speaking invitations, collaboration, or media: direct to ankit.asthana49@hotmail.com or LinkedIn. Be warm, accurate, and enthusiastic about Ankit's work in Agentic AI and cloud infrastructure.`;
+
+let hist=[],busy=false;
+const msgs=document.getElementById('chatMessages');
+const inp=document.getElementById('chatInput');
+const btn=document.getElementById('sendBtn');
+
+function addMsg(t,cls){
+  const d=document.createElement('div');
+  d.className='msg '+cls;
+  d.textContent=t;
+  msgs.appendChild(d);
+  msgs.scrollTop=9e9;
+  return d;
+}
+function sq(t){inp.value=t;send();}
+function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+
+async function send(){
+  if(busy)return;
+  const t=inp.value.trim();
+  if(!t)return;
+  inp.value='';
+  document.getElementById('qp').style.display='none';
+  addMsg(t,'user');
+  hist.push({role:'user',content:t});
+  busy=true;btn.disabled=true;
+  const typing=addMsg('Thinking…','typing');
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})
+    });
+    const d=await r.json();
+    const reply=d.content?.find(b=>b.type==='text')?.text||'Sorry, could not get a response right now.';
+    typing.remove();
+    addMsg(reply,'ai');
+    hist.push({role:'assistant',content:reply});
+  }catch(e){
+    typing.remove();
+    addMsg('Connection error — please try again.','typing');
+    hist.pop();
+  }
+  busy=false;btn.disabled=false;
+}
+</script>
+</body>
+</html>
