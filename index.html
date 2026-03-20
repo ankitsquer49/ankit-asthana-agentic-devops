@@ -594,7 +594,9 @@ async function send(){
   busy=true;btn.disabled=true;
   const typing=addMsg('Thinking…','typing');
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
+    // 👇 Replace with your Cloudflare Worker URL after deploying
+    const PROXY = 'https://frosty-river-3e0d.ankit-asthana.workers.dev';
+    const r=await fetch(PROXY,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})
